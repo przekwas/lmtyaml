@@ -3,7 +3,7 @@ export default function Tracker() {
       <main>
           <section>
               <div>
-                  <h1>Tracker View</h1>
+                  <h1>Tracker View lols</h1>
               </div>
           </section>
       </main>
