@@ -1,16 +1,16 @@
-import { AuthProvider } from '../shared/components';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider, Navbar } from '../shared/components';
+import AppRoutes from './AppRoutes';
 
 export default function App() {
 	return (
-		<AuthProvider>
-			<main>
-				<section>
-					<div>
-						<h1>Hello World</h1>
-						<button className="btn btn-primary">Button Test</button>
-					</div>
-				</section>
-			</main>
-		</AuthProvider>
+		<BrowserRouter>
+			<AuthProvider>
+				<Navbar />
+				<div className="container px-2 mx-auto md:px-0">
+					<AppRoutes />
+				</div>
+			</AuthProvider>
+		</BrowserRouter>
 	);
 }

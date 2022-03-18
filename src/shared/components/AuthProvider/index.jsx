@@ -10,15 +10,13 @@ export default function AuthProvider({ children }) {
 	});
 
 	useEffect(() => {
-		setTimeout(() => {
-			setAuthState({
-				authenticated: true,
-				checking: false
-			});
-		}, 3000);
+		setAuthState({
+			authenticated: true,
+			checking: false
+		});
 	}, []);
 
-	if (authState.checking) return <LoaderCard length={3} />
+	if (authState.checking) return <LoaderCard length={3} />;
 
 	return (
 		<AuthContext.Provider value={[authState, setAuthState]}>{children}</AuthContext.Provider>
