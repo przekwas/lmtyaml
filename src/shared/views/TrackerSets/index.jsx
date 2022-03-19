@@ -1,6 +1,51 @@
-import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { setsService } from '../../services';
+import { setSet } from '../../utils/storage';
 
 export default function TrackerSets() {
+	const navigate = useNavigate();
+	const [sets, setSets] = useState([]);
+	const [selected, setSelected] = useState('default');
+	const [name, setName] = useState('');
+
+	useEffect(() => {
+		setsService
+			.getAllForUserAndSession()
+			.then(data => setSets(data))
+			.catch(e => alert(e.message));
+	}, []);
+
+	const handleCreateNew = () => {
+		if (name && selected === 'default') {
+			setsService
+				.createNew(name)
+				.then(id => {
+					setSet(id);
+					navigate('/tracker/exercise');
+				})
+				.catch(e => alert(e.message));
+			return;
+		}
+
+		if (!name && selected !== 'default') {
+			setSet(selected);
+			navigate('/tracker/exercise');
+			return;
+		}
+	};
+
+	const handleSelectChange = e => {
+		setSelected(e.target.value);
+		setName('');
+	};
+
+	const handleInput = e => {
+		setName(e.target.value);
+		setSelected('default');
+	};
+
 	return (
 		<div>
 			<div className="text-sm breadcrumbs">
@@ -20,10 +65,18 @@ export default function TrackerSets() {
 						<label className="label">
 							<span className="label-text">Select Existing</span>
 						</label>
-						<select className="select select-bordered">
+						<select
+							className="select select-bordered"
+							value={selected}
+							onChange={handleSelectChange}>
 							<option value="default" disabled>
-								Select One
+								{sets.length ? 'Select One' : 'No Sets'}
 							</option>
+							{sets.map(set => (
+								<option key={set.id} value={set.id}>
+									{set.name} - {dayjs(set.created_at).format('MMM DD, YYYY')}
+								</option>
+							))}
 						</select>
 					</div>
 					<div className="w-full max-w-xs mx-auto mt-10 mb-5 divider">OR</div>
@@ -33,12 +86,17 @@ export default function TrackerSets() {
 						</label>
 						<input
 							type="text"
-							placeholder="Grog's Gym"
+							placeholder="Bicep Curl"
 							autoComplete="organization"
 							className="w-full max-w-xs input input-bordered"
+							value={name}
+							onChange={handleInput}
 						/>
 					</div>
-					<button type="button" className="mt-10 btn btn-secondary btn-wide">
+					<button
+						type="button"
+						className="mt-10 btn btn-secondary btn-wide"
+						onClick={handleCreateNew}>
 						Set it
 					</button>
 				</form>

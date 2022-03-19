@@ -7,7 +7,9 @@ import {
 	TrackerSessions,
 	TrackerChoice,
 	TrackerSets,
-	TrackerCardio
+	TrackerCardio,
+	TrackerExercise,
+	TrackerResults
 } from '../shared/views';
 
 export default function AppRoutes() {
@@ -17,11 +19,12 @@ export default function AppRoutes() {
 			<Route path="login" element={<Login />} />
 			<Route path="profile" element={<Profile />} />
 			<Route path="tracker" element={<Tracker />}>
-				<Route path="today" element={<h1>Today's Workout</h1>} />
+				<Route path="today" element={<TrackerResults />} />
 				<Route path="sessions" element={<TrackerSessions />} />
 				<Route path="choice" element={<TrackerChoice />} />
 				<Route path="sets" element={<TrackerSets />} />
 				<Route path="cardio" element={<TrackerCardio />} />
+				<Route path="exercise" element={<TrackerExercise />} />
 			</Route>
 			<Route path="*" element={<div>not found</div>} />
 		</Routes>
