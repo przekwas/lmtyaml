@@ -11,7 +11,7 @@ export async function validateToken() {
 
 export async function loginUser(payload) {
     try {
-        const token = await post('/auth/login', payload);
+        const { token } = await post('/auth/login', payload);
         setToken(token);
     } catch (error) {
         throw error;

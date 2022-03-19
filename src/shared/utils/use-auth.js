@@ -21,7 +21,7 @@ export function useAuth() {
 			authenticated: false
 		});
 		clearToken();
-		navigate('/');
+		navigate('/login');
 	};
 
 	return {

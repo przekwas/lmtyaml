@@ -3,7 +3,7 @@ import { useAuth } from '../../utils/use-auth';
 
 export default function Navbar() {
 	const { authenticated } = useAuth();
-
+	
 	return (
 		<div className="mb-5 navbar bg-base-100">
 			<div className="flex-1">
@@ -16,7 +16,7 @@ export default function Navbar() {
 							Home
 						</NavLink>
 					</li>
-					{authenticated ? (
+					{!authenticated ? (
 						<li>
 							<NavLink
 								to="/login"

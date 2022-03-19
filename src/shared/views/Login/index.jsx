@@ -1,20 +1,25 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useForm } from '../../utils/use-form';
+import { useAuth } from '../../utils/use-auth';
 import { authService } from '../../services';
 
-import { Alert } from '../../components';
-
 export default function Login() {
-	const navigate = useNavigate();
-	const { values, handleChanges, error, setError } = useForm();
+	const { authenticated, signin } = useAuth();
+	const { values, handleChanges, error, setError } = useForm({
+		email: 'guest@test.com',
+		password: 'password123'
+	});
 
 	const handleSubmit = () => {
 		authService
 			.loginUser(values)
-			.then(() => navigate('/profile'))
+			.then(() => signin('/profile'))
 			.catch(e => setError(e.message));
 	};
+
+	if (authenticated) {
+		return <Navigate to="/profile" />;
+	}
 
 	return (
 		<form className="flex flex-col items-center justify-center">
