@@ -7,7 +7,7 @@ export default function Navbar() {
 	return (
 		<div className="mb-5 navbar bg-base-100">
 			<div className="flex-1">
-				<div className="text-lg font-bold normal-case">Workout Tracker</div>
+				<div className="text-lg font-bold normal-case">LMTYAML</div>
 			</div>
 			<div className="flex-none">
 				<ul className="p-0 menu menu-horizontal menu-compact">
@@ -28,9 +28,9 @@ export default function Navbar() {
 						<>
 							<li>
 								<NavLink
-									to="/profile"
+									to="/dashboard"
 									className={({ isActive }) => `${isActive && 'active'}`}>
-									Profile
+									Dashboard
 								</NavLink>
 							</li>
 							<li>

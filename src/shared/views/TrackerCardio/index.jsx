@@ -4,11 +4,13 @@ import { cardioService } from '../../services';
 
 export default function TrackerCardio() {
     const navigate = useNavigate();
-	const { values, handleChanges } = useForm();
+	const { values, handleChanges, sanitize } = useForm();
 
 	const handleSubmit = () => {
+		if (!Object.values(values).length) return;
+		
 		cardioService
-			.createNew(values)
+			.createNew(sanitize(values))
 			.then(() => navigate('/tracker/today'))
 			.catch(e => alert(e.message));
 	};
@@ -46,8 +48,8 @@ export default function TrackerCardio() {
 						<span className="ml-auto label-text-alt">in minutes</span>
 					</label>
 					<input
-						type="text"
-						placeholder="45m"
+						type="number"
+						placeholder="42"
 						className="w-full max-w-xs input input-bordered"
 						name="time"
 						value={values.time || ''}
@@ -60,8 +62,22 @@ export default function TrackerCardio() {
 						<span className="ml-auto label-text-alt">optional</span>
 					</label>
 					<input
-						type="text"
+						type="number"
 						placeholder="420"
+						className="w-full max-w-xs input input-bordered"
+						name="estimated_calories"
+						value={values.estimated_calories || ''}
+						onChange={handleChanges}
+					/>
+				</div>
+				<div className="w-full max-w-xs form-control">
+					<label className="label">
+						<span className="label-text">Estimated Distance</span>
+						<span className="ml-auto label-text-alt">optional - in miles</span>
+					</label>
+					<input
+						type="number"
+						placeholder="69"
 						className="w-full max-w-xs input input-bordered"
 						name="estimated_calories"
 						value={values.estimated_calories || ''}

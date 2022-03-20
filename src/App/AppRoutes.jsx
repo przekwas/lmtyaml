@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import {
 	Home,
 	Login,
-	Profile,
+	Dashboard,
 	Tracker,
 	TrackerSessions,
 	TrackerChoice,
@@ -17,7 +17,7 @@ export default function AppRoutes() {
 		<Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="login" element={<Login />} />
-			<Route path="profile" element={<Profile />} />
+			<Route path="dashboard" element={<Dashboard />} />
 			<Route path="tracker" element={<Tracker />}>
 				<Route path="today" element={<TrackerResults />} />
 				<Route path="sessions" element={<TrackerSessions />} />

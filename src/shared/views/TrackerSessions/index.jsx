@@ -20,7 +20,7 @@ export default function TrackerSessions() {
 	const handleCreateNew = () => {
 		if (name && selected === 'default') {
 			sessionsService
-				.createNew(name)
+				.createNew(name.trim().toLowerCase())
 				.then(session_id => {
 					setSession(session_id);
 					navigate('/tracker/choice');

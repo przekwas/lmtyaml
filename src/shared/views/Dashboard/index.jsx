@@ -1,9 +1,9 @@
-export default function Profile() {
+export default function Dashboard() {
     return (
       <main>
           <section>
               <div>
-                  <h1>Profile View</h1>
+                  <h1>Dashboard View</h1>
               </div>
           </section>
       </main>

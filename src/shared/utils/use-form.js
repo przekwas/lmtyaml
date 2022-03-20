@@ -6,13 +6,22 @@ export function useForm(initialState = {}) {
 
 	const handleChanges = e => setValues(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
+	const sanitize = obj => {
+		const sanitized = Object.fromEntries(
+			Object.entries(obj).map(([key, value]) => [key, value.trim().toLowerCase()])
+		);
+
+		return sanitized;
+	};
+
 	const clear = () => setValues({});
 
 	return {
 		values,
 		handleChanges,
-        clear,
+		clear,
 		error,
-		setError
+		setError,
+		sanitize
 	};
 }

@@ -5,10 +5,7 @@ import { authService } from '../../services';
 
 export default function Login() {
 	const { authenticated, signin } = useAuth();
-	const { values, handleChanges, error, setError } = useForm({
-		email: 'guest@test.com',
-		password: 'password123'
-	});
+	const { values, handleChanges, error, setError } = useForm({});
 
 	const handleSubmit = () => {
 		authService

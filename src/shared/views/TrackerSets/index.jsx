@@ -20,7 +20,7 @@ export default function TrackerSets() {
 	const handleCreateNew = () => {
 		if (name && selected === 'default') {
 			setsService
-				.createNew(name)
+				.createNew(name.trim().toLowerCase())
 				.then(id => {
 					setSet(id);
 					navigate('/tracker/exercise');
