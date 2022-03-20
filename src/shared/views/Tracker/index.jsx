@@ -1,6 +1,8 @@
 import { Link, Outlet } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
+import { Container } from '../../components';
+
 export default function Tracker() {
 	const { pathname } = useLocation();
 
@@ -16,7 +18,7 @@ export default function Tracker() {
 	};
 
 	return (
-		<div>
+		<Container>
 			<div className="mb-5 btn-group">
 				<Link
 					className={`w-1/2 btn btn-outline btn-sm ${addActive(['today'])}`}
@@ -36,6 +38,6 @@ export default function Tracker() {
 				</Link>
 			</div>
 			<Outlet />
-		</div>
+		</Container>
 	);
 }

@@ -7,9 +7,7 @@ export default function App() {
 		<BrowserRouter>
 			<AuthProvider>
 				<Navbar />
-				<div className="container px-2 mx-auto md:px-0">
-					<AppRoutes />
-				</div>
+				<AppRoutes />
 			</AuthProvider>
 		</BrowserRouter>
 	);
