@@ -7,7 +7,7 @@ export default function Navbar() {
 
 	return (
 		<Container>
-			<div className="mb-5 navbar bg-base-100">
+			<div className="mb-5 navbar bg-base-100"  id="navbar">
 				<div className="flex-1">
 					<div className="text-lg font-bold normal-case">LMTYAML</div>
 				</div>

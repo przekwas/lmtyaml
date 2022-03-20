@@ -2,7 +2,9 @@ import { Routes, Route } from 'react-router-dom';
 import {
 	Home,
 	Login,
+	Register,
 	Dashboard,
+	NotFound,
 	Tracker,
 	TrackerSessions,
 	TrackerChoice,
@@ -17,6 +19,7 @@ export default function AppRoutes() {
 		<Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="login" element={<Login />} />
+			<Route path="register" element={<Register />} />
 			<Route path="dashboard" element={<Dashboard />} />
 			<Route path="tracker" element={<Tracker />}>
 				<Route path="today" element={<TrackerResults />} />
@@ -26,7 +29,7 @@ export default function AppRoutes() {
 				<Route path="cardio" element={<TrackerCardio />} />
 				<Route path="exercise" element={<TrackerExercise />} />
 			</Route>
-			<Route path="*" element={<div>not found</div>} />
+			<Route path="*" element={<NotFound />} />
 		</Routes>
 	);
 }

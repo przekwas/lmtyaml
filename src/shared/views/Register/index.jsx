@@ -1,18 +1,17 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useForm } from '../../utils/use-form';
 import { useAuth } from '../../utils/use-auth';
 import { authService } from '../../services';
 
 import { Container } from '../../components';
-import { PencilAltIcon } from '@heroicons/react/solid';
 
-export default function Login() {
+export default function Register() {
 	const { authenticated, signin } = useAuth();
 	const { values, handleChanges, error, setError } = useForm({});
 
 	const handleSubmit = () => {
 		authService
-			.loginUser(values)
+			.registerUser(values)
 			.then(() => signin('/dashboard'))
 			.catch(e => setError(e.message));
 	};
@@ -61,6 +60,49 @@ export default function Login() {
 				</div>
 				<div className="w-full max-w-xs form-control">
 					<label className="label">
+						<span className="label-text">First Name</span>
+					</label>
+					<input
+						type="text"
+						placeholder="Joseph"
+						autoComplete="given-name"
+						className="w-full max-w-xs input input-bordered"
+						name="first_name"
+						value={values.first_name || ''}
+						onChange={handleChanges}
+					/>
+				</div>
+				<div className="w-full max-w-xs form-control">
+					<label className="label">
+						<span className="label-text">Last Name</span>
+					</label>
+					<input
+						type="text"
+						placeholder="Marquez"
+						autoComplete="family-name"
+						className="w-full max-w-xs input input-bordered"
+						name="last_name"
+						value={values.last_name || ''}
+						onChange={handleChanges}
+					/>
+				</div>
+				<div className="w-full max-w-xs form-control">
+					<label className="label">
+						<span className="label-text">Username</span>
+						<span className="label-text-alt">optional</span>
+					</label>
+					<input
+						type="text"
+						placeholder="mang0"
+						autoComplete="given-name"
+						className="w-full max-w-xs input input-bordered"
+						name="username"
+						value={values.username || ''}
+						onChange={handleChanges}
+					/>
+				</div>
+				<div className="w-full max-w-xs form-control">
+					<label className="label">
 						<span className="label-text">Password</span>
 					</label>
 					<input
@@ -77,13 +119,8 @@ export default function Login() {
 					type="button"
 					className="mt-5 btn btn-secondary btn-wide"
 					onClick={handleSubmit}>
-					Login
+					Register
 				</button>
-				<div className="py-10 my-10 divider">Don't have an account?</div>
-				<Link className="gap-2 btn btn-primary btn-wide" to="/register">
-					Create One!
-					<PencilAltIcon className="h-7 w-7" />
-				</Link>
 			</form>
 		</Container>
 	);

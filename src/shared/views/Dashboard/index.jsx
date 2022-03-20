@@ -3,11 +3,21 @@ import { Container } from '../../components';
 export default function Dashboard() {
 	return (
 		<Container>
-			<section>
-				<div>
-					<h1>Dashboard View</h1>
+			<div
+				className="flex flex-col items-center justify-center"
+				style={{ minHeight: '80vh' }}>
+				<div className="mockup-code">
+					<pre data-prefix="$">
+						<code>npm i working-on-it</code>
+					</pre>
+					<pre data-prefix=">" className="text-success-content">
+						<code>installing...</code>
+					</pre>
+					<pre data-prefix=">" className="bg-warning text-warning-content">
+						<code>Error, dev is lazy!</code>
+					</pre>
 				</div>
-			</section>
+			</div>
 		</Container>
 	);
 }
