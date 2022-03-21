@@ -26,8 +26,19 @@ export default function WeightsTable({ weights }) {
 						<tr key={result.id}>
 							<td>{result.name}</td>
 							<td>{result.reps}</td>
-							<td>{result.weight} lbs</td>
-							<td>{result.body_weight ? `${result.body_weight} lbs` : '--' } </td>
+							<td>
+								{result.weight} <small className="text-gray-500">lbs</small>
+							</td>
+							<td>
+								{result.body_weight ? (
+									<>
+										{result.body_weight}{' '}
+										<small className="text-gray-500">lbs</small>
+									</>
+								) : (
+									'--'
+								)}
+							</td>
 						</tr>
 					))}
 				</tbody>

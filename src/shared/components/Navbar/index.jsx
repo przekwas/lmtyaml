@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from '../../utils/use-auth';
 import Container from '../Container';
 
@@ -7,17 +7,14 @@ export default function Navbar() {
 
 	return (
 		<Container>
-			<div className="mb-5 navbar bg-base-100"  id="navbar">
+			<div className="mb-2 navbar bg-base-100" id="navbar">
 				<div className="flex-1">
-					<div className="text-lg font-bold normal-case">LMTYAML</div>
+					<Link to="/" className="text-lg font-bold normal-case">
+						LMTYAML
+					</Link>
 				</div>
 				<div className="flex-none">
 					<ul className="p-0 menu menu-horizontal menu-compact">
-						<li>
-							<NavLink to="/" className={({ isActive }) => `${isActive && 'active'}`}>
-								Home
-							</NavLink>
-						</li>
 						{!authenticated ? (
 							<li>
 								<NavLink

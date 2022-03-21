@@ -18,16 +18,36 @@ export default function CardioTable({ cardio }) {
 						<th>Name</th>
 						<th>Time</th>
 						<th>Calories</th>
-                        <th>Distance</th>
+						<th>Distance</th>
 					</tr>
 				</thead>
 				<tbody>
 					{cardio.map(result => (
 						<tr key={result.id}>
 							<td>{result.name}</td>
-							<td>{result.time}</td>
-							<td>{result.estimated_calories} kcal</td>
-							<td>{result.estimated_distance} miles</td>
+							<td>
+								{result.time} <small className="text-gray-500">min</small>
+							</td>
+							<td>
+								{result.estimated_calories ? (
+									<>
+										{result.estimated_calories}{' '}
+										<small className="text-gray-500">kcal</small>
+									</>
+								) : (
+									'--'
+								)}
+							</td>
+							<td>
+								{result.estimated_distance ? (
+									<>
+										{result.estimated_distance}{' '}
+										<small className="text-gray-500">miles</small>
+									</>
+								) : (
+									'--'
+								)}
+							</td>
 						</tr>
 					))}
 				</tbody>

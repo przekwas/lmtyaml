@@ -79,8 +79,8 @@ export default function TrackerCardio() {
 						type="number"
 						placeholder="69"
 						className="w-full max-w-xs input input-bordered"
-						name="estimated_calories"
-						value={values.estimated_calories || ''}
+						name="estimated_distance"
+						value={values.estimated_distance || ''}
 						onChange={handleChanges}
 					/>
 				</div>
