@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { Private } from '../shared/components';
 import {
 	Home,
 	Login,
@@ -20,8 +21,21 @@ export default function AppRoutes() {
 			<Route path="/" element={<Home />} />
 			<Route path="login" element={<Login />} />
 			<Route path="register" element={<Register />} />
-			<Route path="dashboard" element={<Dashboard />} />
-			<Route path="tracker" element={<Tracker />}>
+			<Route
+				path="dashboard"
+				element={
+					<Private>
+						<Dashboard />
+					</Private>
+				}
+			/>
+			<Route
+				path="tracker"
+				element={
+					<Private>
+						<Tracker />
+					</Private>
+				}>
 				<Route path="today" element={<TrackerResults />} />
 				<Route path="sessions" element={<TrackerSessions />} />
 				<Route path="choice" element={<TrackerChoice />} />
