@@ -53,6 +53,7 @@ export default function Login() {
 						type="email"
 						placeholder="fox@mccloud.com"
 						autoComplete="current-email"
+						maxLength="50"
 						className="w-full max-w-xs input input-bordered"
 						name="email"
 						value={values.email || ''}
@@ -67,6 +68,7 @@ export default function Login() {
 						type="password"
 						placeholder="20xxMultishine"
 						autoComplete="current-password"
+						maxLength="50"
 						className="w-full max-w-xs input input-bordered"
 						name="password"
 						value={values.password || ''}

@@ -52,6 +52,7 @@ export default function Register() {
 						type="email"
 						placeholder="fox@mccloud.com"
 						autoComplete="current-email"
+						maxLength="50"
 						className="w-full max-w-xs input input-bordered"
 						name="email"
 						value={values.email || ''}
@@ -66,6 +67,7 @@ export default function Register() {
 						type="text"
 						placeholder="Joseph"
 						autoComplete="given-name"
+						maxLength="50"
 						className="w-full max-w-xs input input-bordered"
 						name="first_name"
 						value={values.first_name || ''}
@@ -80,6 +82,7 @@ export default function Register() {
 						type="text"
 						placeholder="Marquez"
 						autoComplete="family-name"
+						maxLength="50"
 						className="w-full max-w-xs input input-bordered"
 						name="last_name"
 						value={values.last_name || ''}
@@ -95,6 +98,7 @@ export default function Register() {
 						type="text"
 						placeholder="mang0"
 						autoComplete="given-name"
+						maxLength="50"
 						className="w-full max-w-xs input input-bordered"
 						name="username"
 						value={values.username || ''}
@@ -111,6 +115,7 @@ export default function Register() {
 						autoComplete="current-password"
 						className="w-full max-w-xs input input-bordered"
 						name="password"
+						maxLength="50"
 						value={values.password || ''}
 						onChange={handleChanges}
 					/>

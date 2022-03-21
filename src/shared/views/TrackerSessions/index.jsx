@@ -84,6 +84,7 @@ export default function TrackerSessions() {
 						type="text"
 						placeholder="Grog's Gym"
 						autoComplete="organization"
+						maxLength="50"
 						className="w-full max-w-xs input input-bordered"
 						value={name}
 						onChange={handleInput}
