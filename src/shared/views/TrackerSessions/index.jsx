@@ -2,13 +2,14 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { sessionsService } from '../../services';
-import { setSession } from '../../utils/storage';
+import { setSession, getSession } from '../../utils/storage';
 
 export default function TrackerSessions() {
 	const navigate = useNavigate();
 	const [sessions, setSessions] = useState([]);
-	const [selected, setSelected] = useState('default');
+	const [selected, setSelected] = useState(getSession() || 'default');
 	const [name, setName] = useState('');
+	const [error, setError] = useState('');
 
 	useEffect(() => {
 		sessionsService
@@ -18,6 +19,11 @@ export default function TrackerSessions() {
 	}, []);
 
 	const handleCreateNew = () => {
+		if (!name.length || selected === 'default') {
+			setError('pick or make a session, brah');
+			return;
+		}
+
 		if (name && selected === 'default') {
 			sessionsService
 				.createNew(name.trim().toLowerCase())
@@ -94,7 +100,7 @@ export default function TrackerSessions() {
 					type="button"
 					className="mt-10 btn btn-secondary btn-wide"
 					onClick={handleCreateNew}>
-					Set it
+					Session It Up
 				</button>
 			</form>
 		</div>

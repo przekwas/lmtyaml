@@ -1,20 +1,27 @@
+import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { useForm } from '../../utils/use-form';
+import { useForm } from 'react-hook-form';
 import { useAuth } from '../../utils/use-auth';
 import { authService } from '../../services';
+import { EMAIL_PATTERN } from '../../utils/patterns';
 
-import { Container } from '../../components';
+import { AlertError, Container, FormError } from '../../components';
 import { PencilAltIcon } from '@heroicons/react/solid';
 
 export default function Login() {
 	const { authenticated, signin } = useAuth();
-	const { values, handleChanges, error, setError } = useForm({});
+	const [alertError, setAlertError] = useState('');
+	const {
+		register,
+		handleSubmit,
+		formState: { errors }
+	} = useForm();
 
-	const handleSubmit = () => {
+	const handleLogin = data => {
 		authService
-			.loginUser(values)
+			.loginUser(data)
 			.then(() => signin('/dashboard'))
-			.catch(e => setError(e.message));
+			.catch(e => setAlertError(e.message));
 	};
 
 	if (authenticated) {
@@ -24,27 +31,6 @@ export default function Login() {
 	return (
 		<Container>
 			<form className="flex flex-col items-center justify-center">
-				{error && (
-					<div
-						className="max-w-xs mb-5 shadow-lg alert alert-error"
-						onClick={() => setError('')}>
-						<div>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								className="flex-shrink-0 w-6 h-6 stroke-current"
-								fill="none"
-								viewBox="0 0 24 24">
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth="2"
-									d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-								/>
-							</svg>
-							<span>{error}</span>
-						</div>
-					</div>
-				)}
 				<div className="w-full max-w-xs form-control">
 					<label className="label">
 						<span className="label-text">Email</span>
@@ -56,10 +42,22 @@ export default function Login() {
 						maxLength="50"
 						className="w-full max-w-xs input input-bordered"
 						name="email"
-						value={values.email || ''}
-						onChange={handleChanges}
+						{...register('email', {
+							required: true,
+							maxLength: 50,
+							pattern: {
+								value: EMAIL_PATTERN,
+								message: 'invalid email format'
+							}
+						})}
 					/>
+					<label className="label">
+						{errors.email?.type && (
+							<FormError type={errors.email.type} message={errors.email.message} />
+						)}
+					</label>
 				</div>
+
 				<div className="w-full max-w-xs form-control">
 					<label className="label">
 						<span className="label-text">Password</span>
@@ -71,16 +69,26 @@ export default function Login() {
 						maxLength="50"
 						className="w-full max-w-xs input input-bordered"
 						name="password"
-						value={values.password || ''}
-						onChange={handleChanges}
+						{...register('password', { required: true, maxLength: 50, minLength: 6 })}
 					/>
+					<label className="label">
+						{errors.password?.type && (
+							<FormError
+								type={errors.password.type}
+								message={errors.password.message}
+							/>
+						)}
+					</label>
 				</div>
 				<button
 					type="button"
 					className="mt-5 btn btn-secondary btn-wide"
-					onClick={handleSubmit}>
+					onClick={handleSubmit(handleLogin)}>
 					Login
 				</button>
+				{alertError && (
+					<AlertError message={alertError} className="mt-5" callback={setAlertError} />
+				)}
 				<div className="py-10 my-10 divider">Don't have an account?</div>
 				<Link className="gap-2 btn btn-primary btn-wide" to="/register">
 					Create One!
