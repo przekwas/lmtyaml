@@ -1,17 +1,19 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { exercisesService } from '../../services';
 import { sanitizeData, removeEmptyFields } from '../../utils/sanitize-data';
+import { getExercise, setExercise } from '../../utils/storage';
 
 import { FormError, AlertError } from '../../components';
 
 export default function TrackerExercise() {
-	const navigate = useNavigate();
 	const [alertError, setAlertError] = useState('');
 	const {
 		register,
 		handleSubmit,
+		reset,
+		setValue,
 		formState: { errors }
 	} = useForm({});
 
@@ -19,8 +21,17 @@ export default function TrackerExercise() {
 		const prepped = removeEmptyFields(data);
 		exercisesService
 			.createNew(sanitizeData(prepped))
-			.then(() => navigate(-1))
+			.then(() => {
+				setExercise(data);
+				reset();
+			})
 			.catch(e => setAlertError(e.message));
+	};
+
+	const handleRepeat = () => {
+		const data = getExercise();
+		setValue('reps', data.reps);
+		setValue('weight', data.weight);
 	};
 
 	return (
@@ -84,6 +95,12 @@ export default function TrackerExercise() {
 					className="mt-10 btn btn-secondary btn-wide"
 					onClick={handleSubmit(handleCreate)}>
 					Pump It
+				</button>
+				<button
+					type="button"
+					className="mt-10 btn btn-info btn-wide"
+					onClick={handleRepeat}>
+					Pump It Again
 				</button>
 				{alertError && (
 					<AlertError message={alertError} className="mt-5" callback={setAlertError} />

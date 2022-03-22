@@ -1,6 +1,7 @@
 const TOKEN_KEY = 'workout_derpz';
 const SESSION_KEY = 'session_herpz';
 const SET_KEY = 'set_pizza';
+const EXERCISE_KEY = 'kill_me';
 
 export function setToken(token) {
 	localStorage.setItem(TOKEN_KEY, token);
@@ -36,4 +37,16 @@ export function getSet() {
 
 export function clearSet() {
 	localStorage.removeItem(SET_KEY);
+}
+
+export function setExercise(payload) {
+	localStorage.setItem(EXERCISE_KEY, JSON.stringify(payload));
+}
+
+export function getExercise() {
+	return JSON.parse(localStorage.getItem(EXERCISE_KEY));
+}
+
+export function clearExercise() {
+	localStorage.removeItem(EXERCISE_KEY);
 }

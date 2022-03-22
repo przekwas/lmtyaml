@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function LoaderCard({ length = 1 }) {
+export default function LoaderCard({ length = 1, size = 'min-h-screen' }) {
 	const [blankLoader, setBlankLoader] = useState(true);
 
 	useEffect(() => {
@@ -14,7 +14,7 @@ export default function LoaderCard({ length = 1 }) {
 	if (blankLoader) return <div></div>;
 
 	return (
-		<main className="flex flex-col items-center justify-center min-h-screen px-2 lg:px-0">
+		<main className={`flex flex-col items-center justify-center px-2 lg:px-0 ${size}`}>
 			{Array(length)
 				.fill('')
 				.map((_, index) => (

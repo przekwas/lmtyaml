@@ -15,29 +15,26 @@ export default function WeightsTable({ weights }) {
 			<table className="table w-full table-compact">
 				<thead>
 					<tr>
-						<th>Name</th>
+						<th>Set Name</th>
 						<th>Reps</th>
-						<th>Weight</th>
-						<th>Body</th>
+						<th>
+							Weight <small className="text-gray-500">lbs</small>
+						</th>
 					</tr>
 				</thead>
 				<tbody>
 					{weights.map(result => (
 						<tr key={result.id}>
 							<td>{result.name}</td>
-							<td>{result.reps}</td>
 							<td>
-								{result.weight} <small className="text-gray-500">lbs</small>
+								{result.set_reps.split(';;').map((rep, idx, arr) => {
+									return idx === arr.length - 1 ? `${rep}` : `${rep} / `;
+								})}
 							</td>
 							<td>
-								{result.body_weight ? (
-									<>
-										{result.body_weight}{' '}
-										<small className="text-gray-500">lbs</small>
-									</>
-								) : (
-									'--'
-								)}
+								{result.set_weights.split(';;').map((weight, idx, arr) => {
+									return idx === arr.length - 1 ? `${weight}` : `${weight} / `;
+								})}
 							</td>
 						</tr>
 					))}
