@@ -2,23 +2,32 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { setsService } from '../../services';
-import { setSet } from '../../utils/storage';
+import { setSet, getSet } from '../../utils/storage';
+
+import { AlertError, FormError } from '../../components';
 
 export default function TrackerSets() {
 	const navigate = useNavigate();
 	const [sets, setSets] = useState([]);
-	const [selected, setSelected] = useState('default');
+	const [selected, setSelected] = useState(getSet() || 'default');
 	const [name, setName] = useState('');
+	const [alertError, setAlertError] = useState('');
+	const [formError, setFormError] = useState({});
 
 	useEffect(() => {
 		setsService
 			.getAllForUserAndSession()
 			.then(data => setSets(data))
-			.catch(e => alert(e.message));
+			.catch(e => setAlertError(e.message));
 	}, []);
 
 	const handleCreateNew = () => {
 		if (name && selected === 'default') {
+			if (name.length > 50) {
+				setFormError({ name: { type: 'maxLength' } });
+				return;
+			}
+
 			setsService
 				.createNew(name.trim().toLowerCase())
 				.then(id => {
@@ -86,12 +95,21 @@ export default function TrackerSets() {
 						</label>
 						<input
 							type="text"
-							placeholder="Bicep Curl"
+							placeholder="biceps curl"
 							autoComplete="organization"
 							className="w-full max-w-xs input input-bordered"
+							maxLength="50"
 							value={name}
 							onChange={handleInput}
 						/>
+						<label className="label">
+							{formError.name?.type && (
+								<FormError
+									type={formError.name.type}
+									message={formError.name.message}
+								/>
+							)}
+						</label>
 					</div>
 					<button
 						type="button"
@@ -99,6 +117,13 @@ export default function TrackerSets() {
 						onClick={handleCreateNew}>
 						Set it
 					</button>
+					{alertError && (
+						<AlertError
+							message={alertError}
+							className="mt-5"
+							callback={setAlertError}
+						/>
+					)}
 				</form>
 			</div>
 		</div>

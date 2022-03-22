@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useAuth } from '../../utils/use-auth';
 import { authService } from '../../services';
 import { EMAIL_PATTERN } from '../../utils/patterns';
+import { removeEmptyFields } from '../../utils/sanitize-data';
 
 import { AlertError, Container, FormError } from '../../components';
 
@@ -17,8 +18,9 @@ export default function Register() {
 	} = useForm();
 
 	const handleRegister = data => {
+		const prepped = removeEmptyFields(data);
 		authService
-			.registerUser(data)
+			.registerUser(prepped)
 			.then(() => signin('/dashboard'))
 			.catch(e => setAlertError(e.message));
 	};
@@ -26,8 +28,6 @@ export default function Register() {
 	if (authenticated) {
 		return <Navigate to="/dashboard" />;
 	}
-
-	console.log(errors);
 
 	return (
 		<Container>

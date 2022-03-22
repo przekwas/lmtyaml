@@ -1,18 +1,26 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from '../../utils/use-form';
+import { useForm } from 'react-hook-form';
 import { cardioService } from '../../services';
+import { sanitizeData, removeEmptyFields } from '../../utils/sanitize-data';
+
+import { FormError, AlertError } from '../../components';
 
 export default function TrackerCardio() {
-    const navigate = useNavigate();
-	const { values, handleChanges, sanitize } = useForm();
+	const navigate = useNavigate();
+	const [alertError, setAlertError] = useState('');
+	const {
+		register,
+		handleSubmit,
+		formState: { errors }
+	} = useForm();
 
-	const handleSubmit = () => {
-		if (!Object.values(values).length) return;
-		
+	const handleCreate = data => {
+		const prepped = removeEmptyFields(data);
 		cardioService
-			.createNew(sanitize(values))
+			.createNew(sanitizeData(prepped))
 			.then(() => navigate('/tracker/today'))
-			.catch(e => alert(e.message));
+			.catch(e => setAlertError(e.message));
 	};
 
 	return (
@@ -38,9 +46,13 @@ export default function TrackerCardio() {
 						placeholder="eliptical"
 						className="w-full max-w-xs input input-bordered"
 						name="name"
-						value={values.name || ''}
-						onChange={handleChanges}
+						{...register('name', { required: true, maxLength: 50 })}
 					/>
+					<label className="label">
+						{errors.name?.type && (
+							<FormError type={errors.name.type} message={errors.name.message} />
+						)}
+					</label>
 				</div>
 				<div className="w-full max-w-xs form-control">
 					<label className="label">
@@ -52,9 +64,13 @@ export default function TrackerCardio() {
 						placeholder="42"
 						className="w-full max-w-xs input input-bordered"
 						name="time"
-						value={values.time || ''}
-						onChange={handleChanges}
+						{...register('time', { required: true, max: 999 })}
 					/>
+					<label className="label">
+						{errors.time?.type && (
+							<FormError type={errors.time.type} message={errors.time.message} />
+						)}
+					</label>
 				</div>
 				<div className="w-full max-w-xs form-control">
 					<label className="label">
@@ -66,9 +82,16 @@ export default function TrackerCardio() {
 						placeholder="420"
 						className="w-full max-w-xs input input-bordered"
 						name="estimated_calories"
-						value={values.estimated_calories || ''}
-						onChange={handleChanges}
+						{...register('estimated_calories', { required: false, max: 999 })}
 					/>
+					<label className="label">
+						{errors.estimated_calories?.type && (
+							<FormError
+								type={errors.estimated_calories.type}
+								message={errors.estimated_calories.message}
+							/>
+						)}
+					</label>
 				</div>
 				<div className="w-full max-w-xs form-control">
 					<label className="label">
@@ -80,16 +103,26 @@ export default function TrackerCardio() {
 						placeholder="69"
 						className="w-full max-w-xs input input-bordered"
 						name="estimated_distance"
-						value={values.estimated_distance || ''}
-						onChange={handleChanges}
+						{...register('estimated_distance', { required: false, max: 999 })}
 					/>
+					<label className="label">
+						{errors.estimated_distance?.type && (
+							<FormError
+								type={errors.estimated_distance.type}
+								message={errors.estimated_distance.message}
+							/>
+						)}
+					</label>
 				</div>
 				<button
 					type="button"
 					className="mt-10 btn btn-secondary btn-wide"
-					onClick={handleSubmit}>
+					onClick={handleSubmit(handleCreate)}>
 					Sweat It
 				</button>
+				{alertError && (
+					<AlertError message={alertError} className="mt-5" callback={setAlertError} />
+				)}
 			</form>
 		</div>
 	);

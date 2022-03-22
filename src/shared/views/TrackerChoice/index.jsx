@@ -12,9 +12,13 @@ export default function TrackerChoice() {
 				</ul>
 			</div>
 			<div className="flex flex-col mt-10">
-				<Link to="/tracker/cardio" className="btn btn-secondary">Cardio</Link>
+				<Link to="/tracker/cardio" className="btn btn-secondary">
+					Cardio
+				</Link>
 				<div className="w-full max-w-xs mx-auto my-10 divider">OR</div>
-				<Link to="/tracker/sets" className="btn btn-secondary">Weights</Link>
+				<Link to="/tracker/sets" className="btn btn-secondary">
+					Weights
+				</Link>
 			</div>
 		</div>
 	);

@@ -4,21 +4,30 @@ import { useNavigate } from 'react-router-dom';
 import { sessionsService } from '../../services';
 import { setSession, getSession } from '../../utils/storage';
 
+import { AlertError, FormError } from '../../components';
+
 export default function TrackerSessions() {
 	const navigate = useNavigate();
 	const [sessions, setSessions] = useState([]);
 	const [selected, setSelected] = useState(getSession() || 'default');
 	const [name, setName] = useState('');
+	const [alertError, setAlertError] = useState('');
+	const [formError, setFormError] = useState({});
 
 	useEffect(() => {
 		sessionsService
 			.getAllForUser()
 			.then(data => setSessions(data))
-			.catch(e => alert(e.message));
+			.catch(e => setAlertError(e.message));
 	}, []);
 
 	const handleCreateNew = () => {
 		if (name && selected === 'default') {
+			if (name.length > 50) {
+				setFormError({ name: { type: 'maxLength' } });
+				return;
+			}
+
 			sessionsService
 				.createNew(name.trim().toLowerCase())
 				.then(session_id => {
@@ -66,7 +75,7 @@ export default function TrackerSessions() {
 						value={selected}
 						onChange={handleSelectChange}>
 						<option value="default" disabled>
-							Select One
+							{sessions.length ? 'Select One' : 'No Sets'}
 						</option>
 						{sessions.map(session => (
 							<option key={session.id} value={session.id}>
@@ -89,6 +98,14 @@ export default function TrackerSessions() {
 						value={name}
 						onChange={handleInput}
 					/>
+					<label className="label">
+						{formError.name?.type && (
+							<FormError
+								type={formError.name.type}
+								message={formError.name.message}
+							/>
+						)}
+					</label>
 				</div>
 				<button
 					type="button"
@@ -96,6 +113,9 @@ export default function TrackerSessions() {
 					onClick={handleCreateNew}>
 					Session It Up
 				</button>
+				{alertError && (
+					<AlertError message={alertError} className="mt-5" callback={setAlertError} />
+				)}
 			</form>
 		</div>
 	);
