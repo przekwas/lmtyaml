@@ -9,7 +9,6 @@ export default function TrackerSessions() {
 	const [sessions, setSessions] = useState([]);
 	const [selected, setSelected] = useState(getSession() || 'default');
 	const [name, setName] = useState('');
-	const [error, setError] = useState('');
 
 	useEffect(() => {
 		sessionsService
@@ -19,11 +18,6 @@ export default function TrackerSessions() {
 	}, []);
 
 	const handleCreateNew = () => {
-		if (!name.length || selected === 'default') {
-			setError('pick or make a session, brah');
-			return;
-		}
-
 		if (name && selected === 'default') {
 			sessionsService
 				.createNew(name.trim().toLowerCase())
