@@ -54,17 +54,17 @@ export default function Home() {
 					you up!
 				</div>
 				<div className="mb-10 shadow-lg stats stats-vertical lg:stats-horizontal">
-					<div className="stat">
+					<div className="stat place-items-center">
 						<div className="stat-title">Total Weight</div>
 						<div className="stat-value">{data.exercise?.total_weight_moved}</div>
 						<div className="stat-desc">pounds</div>
 					</div>
-					<div className="stat">
+					<div className="stat place-items-center">
 						<div className="stat-title">Total Sets</div>
 						<div className="stat-value">{data.exercise?.total_sets}</div>
 						<div className="stat-desc">sets</div>
 					</div>
-					<div className="stat">
+					<div className="stat place-items-center">
 						<div className="stat-title">Total Repetitions</div>
 						<div className="stat-value">{data.exercise?.total_reps}</div>
 						<div className="stat-desc">reps</div>
@@ -77,17 +77,17 @@ export default function Home() {
 					</span>
 				</div>
 				<div className="shadow-lg stats stats-vertical lg:stats-horizontal">
-					<div className="stat">
+					<div className="stat place-items-center">
 						<div className="stat-title">Total Time</div>
 						<div className="stat-value">{data.cardio?.total_time}</div>
 						<div className="stat-desc">minutes</div>
 					</div>
-					<div className="stat">
+					<div className="stat place-items-center">
 						<div className="stat-title">Total Distance</div>
 						<div className="stat-value">{data.cardio?.total_miles}</div>
 						<div className="stat-desc">miles</div>
 					</div>
-					<div className="stat">
+					<div className="stat place-items-center">
 						<div className="stat-title">Total Calories</div>
 						<div className="stat-value">{data.cardio?.total_calories}</div>
 						<div className="stat-desc">kcal burned</div>
