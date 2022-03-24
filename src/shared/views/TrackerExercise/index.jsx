@@ -45,6 +45,9 @@ export default function TrackerExercise() {
 						<Link to="/tracker/sessions">Sessions</Link>
 					</li>
 					<li>
+						<Link to="/tracker/choice">Choice</Link>
+					</li>
+					<li>
 						<Link to="/tracker/sets">Sets</Link>
 					</li>
 					<li>Exercise</li>

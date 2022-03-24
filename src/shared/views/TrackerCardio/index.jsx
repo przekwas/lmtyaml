@@ -33,6 +33,9 @@ export default function TrackerCardio() {
 					<li>
 						<Link to="/tracker/sessions">Sessions</Link>
 					</li>
+					<li>
+						<Link to="/tracker/choice">Choice</Link>
+					</li>
 					<li>Cardio</li>
 				</ul>
 			</div>
@@ -43,7 +46,7 @@ export default function TrackerCardio() {
 					</label>
 					<input
 						type="text"
-						placeholder="eliptical"
+						placeholder="elliptical"
 						className="w-full max-w-xs input input-bordered"
 						name="name"
 						{...register('name', { required: true, maxLength: 50 })}

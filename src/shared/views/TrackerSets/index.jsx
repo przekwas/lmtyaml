@@ -65,6 +65,9 @@ export default function TrackerSets() {
 					<li>
 						<Link to="/tracker/sessions">Sessions</Link>
 					</li>
+					<li>
+						<Link to="/tracker/choice">Choice</Link>
+					</li>
 					<li>Sets</li>
 				</ul>
 			</div>

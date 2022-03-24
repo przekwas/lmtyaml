@@ -9,6 +9,15 @@ export async function daily() {
 	}
 }
 
+export async function weekly() {
+	try {
+		const results = await get('/mylife/results/user/weekly');
+		return results;
+	} catch (error) {
+		throw error;
+	}
+}
+
 export async function totals() {
 	try {
 		const results = await get('/mylife/results/totals');
