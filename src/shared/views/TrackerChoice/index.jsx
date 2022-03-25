@@ -8,7 +8,10 @@ export default function TrackerChoice() {
 					<li>
 						<span>Tracker</span>
 					</li>
-					<li>Sessions</li>
+					<li>
+						<Link to="/tracker/sessions">Sessions</Link>
+					</li>
+					<li>Choice</li>
 				</ul>
 			</div>
 			<div className="flex flex-col mt-10">
