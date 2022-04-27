@@ -3,17 +3,20 @@ import { get } from './base';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import isToday from 'dayjs/plugin/isToday';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
+dayjs.extend(isToday);
 
-console.log(dayjs.tz.guess());
+const TZ = dayjs.tz.guess();
 
 export async function daily() {
 	try {
 		const results = await get('/mylife/results/user/today');
-
-		return results;
+		const weights = results.weights.filter(weight => dayjs(weight.created_at).tz(TZ).isToday());
+		const cardio = results.cardio.filter(cardio => dayjs(cardio.created_at).tz(TZ).isToday());
+		return { cardio, weights };
 	} catch (error) {
 		throw error;
 	}
