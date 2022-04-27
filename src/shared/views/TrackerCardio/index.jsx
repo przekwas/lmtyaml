@@ -106,7 +106,13 @@ export default function TrackerCardio() {
 						placeholder="69"
 						className="w-full max-w-xs input input-bordered"
 						name="estimated_distance"
-						{...register('estimated_distance', { required: false, max: 999 })}
+						{...register('estimated_distance', {
+							required: false,
+							max: {
+								value: 99.99,
+								message: 'max 99.99'
+							}
+						})}
 					/>
 					<label className="label">
 						{errors.estimated_distance?.type && (

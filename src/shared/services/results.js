@@ -1,8 +1,18 @@
 import { get } from './base';
 
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+console.log(dayjs.tz.guess());
+
 export async function daily() {
 	try {
 		const results = await get('/mylife/results/user/today');
+
 		return results;
 	} catch (error) {
 		throw error;
